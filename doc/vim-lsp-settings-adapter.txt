@@ -1,4 +1,4 @@
-vim-lsp-settings-adapter.txt*  Use mattn/vim-lsp-settings with yegappan/lsp
+*vim-lsp-settings-adapter.txt*  Use mattn/vim-lsp-settings with yegappan/lsp
 
 VIM LSP SETTINGS ADAPTER
 
