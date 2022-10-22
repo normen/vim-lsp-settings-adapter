@@ -5,17 +5,17 @@ VIM LSP SETTINGS ADAPTER
 Author: Normen Hansen <https://github.com/normen>
 License: MIT
 
-INTRODUCTION                                    *vim-lsp-settings-adapter*
+INTRODUCTION                                  *vim-lsp-settings-adapter*
 
-This plugin allows using mattn/vim-lsp-settings with yegappan/lsp to easily
-install and manage LSP servers.
+This plugin allows using mattn/|vim-lsp-settings| with yegappan/|lsp| to easily
+install and manage LSP servers for Vim 9.
 
 CAVEATS
 
 Some servers don't seem to work that well, the workspace info isn't currently
 transferred, not sure if that would be needed.
 
-ABOUT                                           *vim-lsp-settings-adapter-about*
+ABOUT                                         *vim-lsp-settings-adapter-about*
 
 Grab the latest version or report a bug on GitHub:
 
