@@ -6,7 +6,8 @@ function! lsp#register_server(server_info) abort
         \     #{
         \  filetype: a:server_info["allowlist"],
         \  path: a:server_info["cmd"]("")[0],
-        \  args: a:server_info["cmd"]("")[1:]
+        \  args: a:server_info["cmd"]("")[1:],
+        \  initializationOptions: a:server_info["initialization_options"],
         \      }
         \   ]
   call lsp#lsp#AddServer(lspServers)
