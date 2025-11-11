@@ -1,3 +1,6 @@
+let g:lsp_log_file = ''
+let g:lsp_log_verbose = 0
+
 " makes vim-lsp-settings work with lsp(vim9) plugin
 function! lsp#register_server(server_info) abort
   "let l:server_name = a:server_info['name']
@@ -38,6 +41,21 @@ endfunction
 
 function! lsp#get_allowed_servers(...) abort
   return []
+endfunction
+
+function! lsp#log_verbose(...) abort
+    if g:lsp_log_verbose
+        call call(function('lsp#log'), a:000)
+    endif
+endfunction
+
+function! lsp#log(...) abort
+    if !empty(g:lsp_log_file)
+        call writefile([strftime('%c') . ':' . json_encode(a:000)], g:lsp_log_file, 'a')
+    endif
+endfunction
+
+function! lsp#ensure_flush_all(buf, server_names) abort
 endfunction
 
 " Returns the current status of all servers (if called with no arguments) or
