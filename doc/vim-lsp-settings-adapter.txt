@@ -12,8 +12,11 @@ install and manage LSP servers for Vim 9.
 
 CAVEATS
 
-Some servers don't seem to work that well, the workspace info isn't currently
-transferred, not sure if that would be needed.
+Some servers don't seem to work that well, depending on what configuration
+needs to be transferred.  Currently initialization_options, workspace_config,
+and root_uri are.
+
+Multiple servers for a buffer are not supported.
 
 ABOUT                                         *vim-lsp-settings-adapter-about*
 
