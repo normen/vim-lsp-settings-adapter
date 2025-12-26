@@ -4,27 +4,23 @@ let g:lsp_log_verbose = 0
 " makes vim-lsp-settings work with lsp(vim9) plugin
 function! lsp#register_server(server_info) abort
   "let l:server_name = a:server_info['name']
-  "let l:project_root = a:server_info['root_uri']("abc")
-  if type(a:server_info["initialization_options"]) == v:t_dict && has_key(a:server_info, 'initialization_options')
-    let lspServers = [
-          \     #{
-          \  filetype: a:server_info["allowlist"],
-          \  path: a:server_info["cmd"]("")[0],
-          \  args: a:server_info["cmd"]("")[1:],
-          \  initializationOptions: a:server_info["initialization_options"],
-          \      }
-          \   ]
-    call lsp#lsp#AddServer(lspServers)
-  else
-    let lspServers = [
-          \     #{
-          \  filetype: a:server_info["allowlist"],
-          \  path: a:server_info["cmd"]("")[0],
-          \  args: a:server_info["cmd"]("")[1:],
-          \      }
-          \   ]
-    call lsp#lsp#AddServer(lspServers)
-endif
+  let lspServers = [
+        \     #{
+        \  filetype: a:server_info["allowlist"],
+        \  path: a:server_info["cmd"]("")[0],
+        \  args: a:server_info["cmd"]("")[1:],
+        \      }
+        \   ]
+  if a:server_info->get('initialization_options', v:null)->type() == v:t_dict
+    let lspServers[0]['initializationOptions'] = a:server_info['initialization_options']
+  endif
+  if a:server_info->get('workspace_config', v:null)->type() == v:t_dict
+    let lspServers[0]['workspaceConfig'] = a:server_info['workspace_config']
+  endif
+  if a:server_info->get('root_uri', v:null)->type() == v:t_func
+    let lspServers[0]['rootSearch'] = a:server_info['root_uri'](a:server_info)
+  endif
+  call lsp#lsp#AddServer(lspServers)
 endfunction
 
 function! lsp#register_command(command_name, callback) abort
