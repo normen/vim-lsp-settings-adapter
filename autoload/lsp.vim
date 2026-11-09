@@ -4,11 +4,21 @@ let g:lsp_log_verbose = 0
 " makes vim-lsp-settings work with lsp(vim9) plugin
 function! lsp#register_server(server_info) abort
   "let l:server_name = a:server_info['name']
+  let l:cmd = a:server_info["cmd"]("")
+  let l:args = l:cmd[1:]
+  " let project aware plugins add extra arguments
+  " (e.g. vim-pio adds clangd --query-driver for PlatformIO projects)
+  if !empty(globpath(&runtimepath, 'autoload/pio.vim'))
+    try
+      let l:args += pio#PIOLspServerArgs(get(a:server_info, 'name', ''))
+    catch
+    endtry
+  endif
   let lspServers = [
         \     #{
         \  filetype: a:server_info["allowlist"],
-        \  path: a:server_info["cmd"]("")[0],
-        \  args: a:server_info["cmd"]("")[1:],
+        \  path: l:cmd[0],
+        \  args: l:args,
         \      }
         \   ]
   if a:server_info->get('initialization_options', v:null)->type() == v:t_dict
